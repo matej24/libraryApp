@@ -7,35 +7,29 @@
       </h5>
       <div id="book-table">
         <v-client-table :data="tableData" :columns="columns" :options="options">
-          <font-awesome-icon class="hover-icon mr-2" slot="edit" icon="clock" @click="showModalKEY()" />
-          <font-awesome-icon class="hover-icon mr-2" slot="edit" icon="comments" @click="showModalKEY()" />
-          <font-awesome-icon class="hover-icon " slot="edit" icon="star" @click="showModalKEY()" />
+          <font-awesome-icon class="hover-icon mr-2" slot="edit" icon="clock" @click="showModalBorrowingBook()" />
+          <font-awesome-icon class="hover-icon mr-2" slot="edit" icon="comments" @click="showModalBorrowingBook()" />
+          <font-awesome-icon class="hover-icon " slot="edit" icon="star" @click="showModalBorrowingBook()" />
         </v-client-table>
       </div>
     </div>
-    <b-modal ref="modalKEY" hide-footer title="KEY">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">
-          <b>Building:</b> A
-        </li>
-        <li class="list-group-item">
-          <b>Floor:</b> 2
-        </li>
-        <li class="list-group-item">
-          <b>Locker:</b> 4B
-        </li>
-        <li class="list-group-item">
-          <b>Position:</b> 88
-        </li>
-      </ul>
+    <b-modal ref="borrowingBookModal" hide-footer title="Borrowing book">
+      <div class="d-block text-center">
+      <h4>With this action you will borrow {book}</h4>
+      </div>
+        <b-button class="mt-5" variant="success" block @click="showModalBookBorrowed">Borrow</b-button>
+        <b-button class="mt-2" variant="danger" block @click="hideModalBorrowingBook">Cancel</b-button>
+    </b-modal>
+     <b-modal ref="successBorrowModal" hide-footer title="Book borrowed">
+      <div class="d-block text-center">
+      <h5>You successfuly borrowed {book} and your book will be reserved for next 24h</h5>
+      </div>
+         <b-button class="mt-5" variant="primary" block @click="hideModalBookBorrowed">OK</b-button>
     </b-modal>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-//import { ServerTable, ClientTable, Event } from 'vue-tables-2';
-//Vue.use(ClientTable);
 
 
 export default {
@@ -63,12 +57,19 @@ export default {
     }
   },
   methods: {
-    showModalKEY() {
-      this.$refs['modalKEY'].show()
+    showModalBorrowingBook() {
+      this.$refs['borrowingBookModal'].show()
     },
-    hideModalKEY() {
-      this.$refs['modalKEY'].hide()
+    hideModalBorrowingBook() {
+      this.$refs['borrowingBookModal'].hide()
     },
+    showModalBookBorrowed() {
+       this.$refs['successBorrowModal'].show()
+    },
+    hideModalBookBorrowed() {
+       this.$refs['successBorrowModal'].hide()
+    },
+
   }
 
 }
