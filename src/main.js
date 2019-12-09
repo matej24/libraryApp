@@ -5,11 +5,11 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { faBook, faClock, faComments, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { ServerTable, ClientTable, Event } from 'vue-tables-2';
+import { ClientTable, Event } from 'vue-tables-2';
 
-library.add(faUserSecret)
+library.add(faBook, faClock, faComments, faStar)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

@@ -3,11 +3,13 @@
     <div class="card-body">
       <h5 class="card-title">
         BOOKS
-        <font-awesome-icon icon="user-secret" />
+        <font-awesome-icon icon="book" />
       </h5>
       <div id="book-table">
         <v-client-table :data="tableData" :columns="columns" :options="options">
-          <font-awesome-icon slot="edit" icon="user-secret" @click="showModalKEY()" />
+          <font-awesome-icon class="hover-icon mr-2" slot="edit" icon="clock" @click="showModalKEY()" />
+          <font-awesome-icon class="hover-icon mr-2" slot="edit" icon="comments" @click="showModalKEY()" />
+          <font-awesome-icon class="hover-icon " slot="edit" icon="star" @click="showModalKEY()" />
         </v-client-table>
       </div>
     </div>
@@ -41,22 +43,22 @@ export default {
 
   data() {
     return {
-      columns: ['id', 'name', 'age', 'edit'],
+      columns: ['book', 'author', 'rating', 'edit'],
       tableData: [
-        { id: 1, name: "John", age: "20", edit: "" },
-        { id: 2, name: "Jane", age: "24", edit: "" },
-        { id: 3, name: "Susan", age: "16", edit: "" },
-        { id: 4, name: "Chris", age: "55", edit: "" },
-        { id: 5, name: "Dan", age: "40", edit: "" }
+        { book: "The Great Gatsby", author: "F. Scott Fitzgerald", rating: "4/5", edit: "" },
+        { book: "To Kill a Mockingbird", author: "Harper Lee", rating: "4.25/5", edit: "" },
+        { book: "1984", author: "George Orwell", rating: "4.7/5", edit: "" },
+        { book: "The Catcher in the Rye", author: "J.D. Salinger", rating: "5/5", edit: "" },
+        { book: "The Hobbit", author: "J.R.R. Tolkien", rating: "4/5", edit: "" }
       ],
       options: {
         headings: {
-          id: 'ID',
-          name: 'Name',
-          age: 'AGE',
+          book: 'Book',
+          author: 'Author',
+          rating: 'Rating',
           edit: 'Actions'
         },
-        sortable: ['id', 'name', 'age']
+        sortable: ['book', 'name', 'age']
       }
     }
   },
@@ -76,5 +78,8 @@ export default {
   margin-left: 20px;
   margin-top: 20px;
   margin-right: 20px;
+}
+.hover-icon:hover{
+  color: #17a2b8;
 }
 </style>
