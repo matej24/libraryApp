@@ -9,11 +9,14 @@ import { faBook, faClock, faComments, faStar } from '@fortawesome/free-solid-svg
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ClientTable, Event } from 'vue-tables-2';
 import Notifications from 'vue-notification'
+import StarRating from 'vue-star-rating'
 
 
 library.add(faBook, faClock, faComments, faStar)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+Vue.component('star-rating', StarRating)
 
 Vue.use(ClientTable)
 

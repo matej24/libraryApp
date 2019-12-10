@@ -14,16 +14,10 @@
             @click="showModalBorrowingBook()"
           />
           <font-awesome-icon
-            class="hover-icon mr-2"
-            slot="edit"
-            icon="comments"
-            @click="showModalBorrowingBook()"
-          />
-          <font-awesome-icon
             class="hover-icon"
             slot="edit"
             icon="star"
-            @click="showModalBorrowingBook()"
+            @click="showRatingModal()"
           />
         </v-client-table>
       </div>
@@ -32,14 +26,20 @@
       <div class="d-block text-center">
         <h4>With this action you will borrow {book}</h4>
       </div>
-      <b-button class="mt-5" variant="success" block @click="showModalBookBorrowed">Borrow</b-button>
-      <b-button class="mt-2" variant="danger" block @click="hideModalBorrowingBook">Cancel</b-button>
+      <b-button class="mt-5" variant="success" block @click="hideModalAndNotifiySuccess">Borrow</b-button>
+      <b-button class="mt-2" variant="danger" block @click="hideModalAndNotifiyCancel">Cancel</b-button>
     </b-modal>
-    <b-modal ref="successBorrowModal" hide-footer title="Book borrowed">
+     <b-modal ref="ratingModal" hide-footer title="Rate book">
       <div class="d-block text-center">
-        <h5>You successfuly borrowed {book} and your book will be reserved for next 24h</h5>
+        <b-row class="justify-content-md-center mt-5">
+        <h4>Select rating</h4>
+        </b-row>
+        <b-row class="justify-content-md-center"> 
+        <star-rating></star-rating>
+        </b-row>
       </div>
-      <b-button class="mt-5" variant="primary" block @click="notificationOK">OK</b-button>
+      <b-button class="mt-5" variant="success" block @click="rateBook">Rate</b-button>
+      <b-button class="mt-2" variant="danger" block @click="hideRatingModal">Cancel</b-button>
     </b-modal>
   </div>
 </template>
@@ -52,22 +52,24 @@ export default {
 
   data() {
     return {
-      columns: ['book', 'author', 'rating', 'edit'],
+      columns: ['id','book', 'author', 'rating', 'status', 'edit'],
       tableData: [
-        { book: "The Great Gatsby", author: "F. Scott Fitzgerald", rating: "4/5", edit: "" },
-        { book: "To Kill a Mockingbird", author: "Harper Lee", rating: "4.25/5", edit: "" },
-        { book: "1984", author: "George Orwell", rating: "4.7/5", edit: "" },
-        { book: "The Catcher in the Rye", author: "J.D. Salinger", rating: "5/5", edit: "" },
-        { book: "The Hobbit", author: "J.R.R. Tolkien", rating: "4/5", edit: "" }
+        { id: '1', book: "The Great Gatsby", author: "F. Scott Fitzgerald", rating: "4/5", status: 'Avaliable', edit: "" },
+        { id: '2', book: "To Kill a Mockingbird", author: "Harper Lee", rating: "4.25/5", status: 'Avaliable', edit: "" },
+        { id: '3', book: "1984", author: "George Orwell", rating: "4.7/5",status: 'Out of stock', edit: "" },
+        { id: '4', book: "The Catcher in the Rye", author: "J.D. Salinger", status: 'Avaliable', rating: "5/5", edit: "" },
+        { id: '5', book: "The Hobbit", author: "J.R.R. Tolkien", rating: "4/5", status: 'Avaliable', edit: "" }
       ],
       options: {
         headings: {
+          id: '#',
           book: 'Book',
           author: 'Author',
           rating: 'Rating',
+          status: 'Status',
           edit: 'Actions'
         },
-        sortable: ['book', 'name', 'age']
+        sortable: ['book', 'name', 'age', 'status']
       }
     }
   },
@@ -78,21 +80,50 @@ export default {
     hideModalBorrowingBook() {
       this.$refs['borrowingBookModal'].hide()
     },
-    showModalBookBorrowed() {
-      this.$refs['successBorrowModal'].show()
-    },
-    hideModalBookBorrowed() {
-      this.$refs['successBorrowModal'].hide()
-    },
-    notificationOK() {
+    hideModalAndNotifiySuccess() {
+      this.$refs['borrowingBookModal'].hide()
       this.$notify({
         group: 'foo',
-        title: 'Important message',
-        text: 'Hello user! This is a notification!'
+        title: 'Success',
+        text: 'Your book is reserved and will wait you for 24h',
+        type: 'success'
       });
-    }
 
-  }
+    },
+    hideModalAndNotifiyCancel() {
+      this.$refs['borrowingBookModal'].hide()
+      this.$notify({
+        group: 'foo',
+        title: 'Cancel',
+        text: 'You canceled reservation',
+        type: 'warn'
+      });
+    },
+    showRatingModal() {
+      this.$refs['ratingModal'].show()
+    },
+    rateBook() {
+      this.$refs['ratingModal'].hide()
+      this.$notify({
+        group: 'foo',
+        title: 'Book rated',
+        text: 'Thank you for giving us your opinion',
+        type: 'info'
+      });
+    },
+    hideRatingModal(){
+      this.$refs['ratingModal'].hide()
+    },
+    setRating: function(rating) {
+      this.rating = "You have Selected: " + rating + " stars";
+    },
+    showCurrentRating: function(rating) {
+      this.currentRating = (rating === 0) ? this.currentSelectedRating : "Click to select " + rating + " stars"
+    },
+    setCurrentSelectedRating: function(rating) {
+      this.currentSelectedRating = "You have Selected: " + rating + " stars";
+    }
+  },
 
 }
 </script>
