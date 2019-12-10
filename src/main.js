@@ -8,14 +8,18 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBook, faClock, faComments, faStar } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { ClientTable, Event } from 'vue-tables-2';
+import Notifications from 'vue-notification'
+
 
 library.add(faBook, faClock, faComments, faStar)
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-Vue.use(ClientTable);
+Vue.use(ClientTable)
 
 Vue.use(BootstrapVue)
+
+Vue.use(Notifications)
 
 Vue.config.productionTip = false
 

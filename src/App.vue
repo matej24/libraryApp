@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div>
+      <notifications group="foo" />
       <b-navbar toggleable="lg" type="dark" variant="info">
         <b-navbar-brand href="#">Library APP</b-navbar-brand>
 
