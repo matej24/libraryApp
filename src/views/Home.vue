@@ -7,6 +7,11 @@
       </h5>
       <div id="book-table">
         <v-client-table :data="tableData" :columns="columns" :options="options">
+          <template slot="book" scope="props">
+        <div>
+          <router-link :to="{name: 'book-view', params: {id: props.row.book}}">{{ props.row.book }}</router-link>
+        </div>
+      </template>
           <font-awesome-icon
             class="hover-icon mr-2"
             slot="edit"
