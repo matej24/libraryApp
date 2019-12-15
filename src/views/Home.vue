@@ -4,6 +4,7 @@
       <h5 class="card-title">
         BOOKS
         <font-awesome-icon icon="book" />
+          <b-button variant="success" class="btn-new-entery" @click="showNewEnteryBookModal()">Add new entery</b-button>
       </h5>
       <div id="book-table">
         <v-client-table :data="tableData" :columns="columns" :options="options">
@@ -40,6 +41,47 @@
       </div>
       <b-button class="mt-5" variant="success" block @click="rateBook">Rate</b-button>
       <b-button class="mt-2" variant="danger" block @click="hideRatingModal">Cancel</b-button>
+    </b-modal>
+    <b-modal ref="newBookEnteryModal" hide-footer title="Enter new book">
+      <div class="d-block text-center">
+        <b-row class="justify-content-md-center">
+           <b-col sm="12" class="mt-4">
+                  <b-form-group
+                    id="fieldset-horizontal"
+                    label-cols-sm="4"
+                    label-cols-lg="3"
+                    label="Book name"
+                    label-for="input-horizontal" 
+                    >
+                  <b-form-input id="input-horizontal"></b-form-input>
+                </b-form-group>
+              </b-col>
+              <b-col sm="12" class="mt-4">
+                  <b-form-group
+                    id="fieldset-horizontal"
+                    label-cols-sm="4"
+                    label-cols-lg="3"
+                    label="Author"
+                    label-for="input-horizontal" 
+                    >
+                  <b-form-input id="input-horizontal"></b-form-input>
+                </b-form-group>
+              </b-col>
+              <b-col sm="12" class="mt-4">
+                  <b-form-group
+                    id="fieldset-horizontal"
+                    label-cols-sm="4"
+                    label-cols-lg="3"
+                    label="Status"
+                    label-for="input-horizontal" 
+                    >
+                  <b-form-input id="input-horizontal"></b-form-input>
+                </b-form-group>
+              </b-col>
+        </b-row>
+      </div>
+      <b-button class="mt-5" variant="success" block @click="buttonDoneNewEnteryModal">Done</b-button>
+      <b-button class="mt-2" variant="danger" block @click="hideNewBookEnteryModal">Cancel</b-button>
     </b-modal>
   </div>
 </template>
@@ -78,9 +120,11 @@ export default {
     showModalBorrowingBook() {
       this.$refs['borrowingBookModal'].show()
     },
+
     hideModalBorrowingBook() {
       this.$refs['borrowingBookModal'].hide()
     },
+
     hideModalAndNotifiySuccess() {
       this.$refs['borrowingBookModal'].hide()
       this.$notify({
@@ -91,6 +135,7 @@ export default {
       });
 
     },
+
     hideModalAndNotifiyCancel() {
       this.$refs['borrowingBookModal'].hide()
       this.$notify({
@@ -100,9 +145,11 @@ export default {
         type: 'warn'
       });
     },
+
     showRatingModal() {
       this.$refs['ratingModal'].show()
     },
+
     rateBook() {
       this.$refs['ratingModal'].hide()
       this.$notify({
@@ -112,15 +159,37 @@ export default {
         type: 'info'
       });
     },
+
     hideRatingModal() {
       this.$refs['ratingModal'].hide()
     },
+
+    showNewEnteryBookModal() {
+      this.$refs['newBookEnteryModal'].show()
+    },
+
+    buttonDoneNewEnteryModal() {
+      this.$refs['newBookEnteryModal'].hide()
+       this.$notify({
+        group: 'foo',
+        title: 'Success',
+        text: 'You added new book',
+        type: 'success'
+      });
+    },
+
+    hideNewBookEnteryModal() {
+      this.$refs['newBookEnteryModal'].hide()
+    },
+
     setRating: function (rating) {
       this.rating = "You have Selected: " + rating + " stars";
     },
+
     showCurrentRating: function (rating) {
       this.currentRating = (rating === 0) ? this.currentSelectedRating : "Click to select " + rating + " stars"
     },
+
     setCurrentSelectedRating: function (rating) {
       this.currentSelectedRating = "You have Selected: " + rating + " stars";
     }
@@ -136,5 +205,8 @@ export default {
 }
 .hover-icon:hover {
   color: #17a2b8;
+}
+.btn-new-entery{
+  float: right;
 }
 </style>

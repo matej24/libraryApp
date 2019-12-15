@@ -8,7 +8,7 @@
         <b-row class="clearfix justify-content-md-center">
           <b-col sm="6">
             <b-row>
-              <b-col sm="12">
+              <b-col sm="12" class="ml-5">
                 <div class="clearfix justify-content-md-center">
                   <b-img src="https://picsum.photos/125/125/?image=58" alt="Left image"></b-img>
                 </div>
@@ -82,7 +82,6 @@
               <b-col class="mt-2" sm="12">
                 <b-form-textarea
                   id="textarea"
-                  v-model="text"
                   placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
                   rows="3"
                   max-rows="6"
