@@ -4,15 +4,21 @@
       <h5 class="card-title">
         BOOKS
         <font-awesome-icon icon="book" />
-          <b-button variant="success" class="btn-new-entery" @click="showNewEnteryBookModal()">Add new entery</b-button>
+        <b-button
+          variant="success"
+          class="btn-new-entery"
+          @click="showNewEnteryBookModal()"
+        >Add new entery</b-button>
       </h5>
       <div id="book-table">
         <v-client-table :data="tableData" :columns="columns" :options="options">
           <template slot="book" scope="props">
-        <div>
-          <router-link :to="{name: 'book-view', params: {id: props.row.book}}">{{ props.row.book }}</router-link>
-        </div>
-      </template>
+            <div>
+              <router-link
+                :to="{name: 'book-view', params: {id: props.row.book}}"
+              >{{ props.row.book }}</router-link>
+            </div>
+          </template>
           <font-awesome-icon
             class="hover-icon mr-2"
             slot="edit"
@@ -45,39 +51,31 @@
     <b-modal ref="newBookEnteryModal" hide-footer title="Enter new book">
       <div class="d-block text-center">
         <b-row class="justify-content-md-center">
-           <b-col sm="12" class="mt-4">
-                  <b-form-group
-                    id="fieldset-horizontal"
-                    label-cols-sm="4"
-                    label-cols-lg="3"
-                    label="Book name"
-                    label-for="input-horizontal" 
-                    >
-                  <b-form-input id="input-horizontal"></b-form-input>
-                </b-form-group>
-              </b-col>
-              <b-col sm="12" class="mt-4">
-                  <b-form-group
-                    id="fieldset-horizontal"
-                    label-cols-sm="4"
-                    label-cols-lg="3"
-                    label="Author"
-                    label-for="input-horizontal" 
-                    >
-                  <b-form-input id="input-horizontal"></b-form-input>
-                </b-form-group>
-              </b-col>
-              <b-col sm="12" class="mt-4">
-                  <b-form-group
-                    id="fieldset-horizontal"
-                    label-cols-sm="4"
-                    label-cols-lg="3"
-                    label="Status"
-                    label-for="input-horizontal" 
-                    >
-                  <b-form-input id="input-horizontal"></b-form-input>
-                </b-form-group>
-              </b-col>
+          <b-col sm="12" class="mt-4">
+            <b-form @submit.stop.prevent>
+              <label for="feedback-user">Book name</label>
+              <b-input v-model="bookNameNewEntery" :state="bookNameValidation" id="feedback-user"></b-input>
+              <b-form-invalid-feedback :state="bookNameValidation">Type Book name</b-form-invalid-feedback>
+              <b-form-valid-feedback :state="bookNameValidation">Looks Good.</b-form-valid-feedback>
+            </b-form>
+          </b-col>
+          <b-col sm="12" class="mt-4">
+            <b-form @submit.stop.prevent>
+              <label for="feedback-user">Author name</label>
+              <b-input
+                v-model="bookAuthorNewEntery"
+                :state="authorNameValidation"
+                id="feedback-user"
+              ></b-input>
+              <b-form-invalid-feedback :state="authorNameValidation">Type Author name</b-form-invalid-feedback>
+              <b-form-valid-feedback :state="authorNameValidation">Looks Good.</b-form-valid-feedback>
+            </b-form>
+          </b-col>
+          <b-col sm="12" class="mt-4">
+            <label for="input-with-list">Input with datalist</label>
+            <b-form-input list="input-list" id="input-with-list"></b-form-input>
+            <b-form-datalist id="input-list" :options="optionsNewEntery"></b-form-datalist>
+          </b-col>
         </b-row>
       </div>
       <b-button class="mt-5" variant="success" block @click="buttonDoneNewEnteryModal">Done</b-button>
@@ -113,9 +111,23 @@ export default {
         },
         sortable: ['book', 'name', 'age', 'status'],
         sortIcon: { base: 'fa', up: 'fa-sort-asc', down: 'fa-sort-desc', is: 'fa-sort' },
-      }
+      },
+      bookNameNewEntery: '',
+      bookAuthorNewEntery: '',
+      optionsNewEntery: ['Avaliable', 'Out of Stock']
     }
   },
+
+  computed: {
+    bookNameValidation() {
+      return this.bookNameNewEntery.length > 1 && this.bookNameNewEntery.length < 50
+    },
+
+    authorNameValidation() {
+      return this.bookAuthorNewEntery.length > 1 && this.bookAuthorNewEntery.length < 50
+    }
+  },
+
   methods: {
     showModalBorrowingBook() {
       this.$refs['borrowingBookModal'].show()
@@ -170,7 +182,7 @@ export default {
 
     buttonDoneNewEnteryModal() {
       this.$refs['newBookEnteryModal'].hide()
-       this.$notify({
+      this.$notify({
         group: 'foo',
         title: 'Success',
         text: 'You added new book',
@@ -206,7 +218,7 @@ export default {
 .hover-icon:hover {
   color: #17a2b8;
 }
-.btn-new-entery{
+.btn-new-entery {
   float: right;
 }
 </style>
