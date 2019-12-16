@@ -188,6 +188,8 @@ export default {
         text: 'You added new book',
         type: 'success'
       });
+      this.bookNameNewEntery = ''
+      this.bookAuthorNewEntery = ''
     },
 
     hideNewBookEnteryModal() {
