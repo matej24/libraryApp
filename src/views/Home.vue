@@ -19,6 +19,11 @@
               >{{ props.row.book }}</router-link>
             </div>
           </template>
+          <template slot="status" scope="props">
+            <div>
+              <b-badge :variant="badgePicker(props.row.status)">{{props.row.status}}</b-badge>
+            </div>
+          </template>
           <font-awesome-icon
             class="hover-icon mr-2"
             slot="edit"
@@ -206,9 +211,15 @@ export default {
 
     setCurrentSelectedRating: function (rating) {
       this.currentSelectedRating = "You have Selected: " + rating + " stars";
-    }
-  },
+    },
 
+    badgePicker(status) {
+      if (status === "Avaliable")
+        return "success"
+      if (status === "Out of stock")
+        return "danger"
+    }
+  }
 }
 </script>
 <style>
